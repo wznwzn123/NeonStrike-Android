@@ -55,7 +55,6 @@ public class MainActivity extends Activity {
                 controller.hide(
                         WindowInsets.Type.statusBars()
                                 | WindowInsets.Type.navigationBars()
-                                | WindowInsets.Type.systemGestures()
                 );
                 controller.setSystemBarsBehavior(
                         WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE

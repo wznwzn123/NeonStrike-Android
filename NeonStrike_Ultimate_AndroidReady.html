@@ -83,7 +83,7 @@ button{font:inherit}
 
 <style id="production-upgrades">
 :root{--ok:#5cf0bd;--warn:#ffd36a;--danger:#ff5f85;--glass:rgba(7,14,25,.78)}
-#lookZone{position:absolute;left:46%;right:0;top:18%;bottom:18%;pointer-events:auto;touch-action:none;z-index:1}
+#lookZone{position:absolute;left:46%;right:0;top:18%;bottom:18%;pointer-events:none;touch-action:none;z-index:1}
 #joystick,#fire,.actionRow,.topbar,#hint,#message,#startScreen,#loadoutPanel,#settingsPanel,#pausePanel{z-index:5}
 #crosshair{position:absolute;left:50%;top:50%;width:34px;height:34px;transform:translate(-50%,-50%);pointer-events:none;z-index:4;opacity:.95;transition:transform .08s,opacity .08s}
 #crosshair:before,#crosshair:after{content:"";position:absolute;left:50%;top:50%;background:#dffaff;box-shadow:0 0 10px rgba(103,234,255,.8)}
@@ -99,12 +99,12 @@ button{font:inherit}
 #aimBtn{position:absolute;right:235px;bottom:92px}#dashBtn{position:absolute;right:235px;bottom:32px}#weaponBtn{position:absolute;right:153px;bottom:92px}
 #hitmarker{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.7);z-index:8;pointer-events:none;opacity:0;color:#fff;font-size:27px;font-weight:1000;text-shadow:0 0 16px rgba(255,255,255,.8);transition:opacity .06s,transform .06s}
 #toast{position:absolute;left:50%;top:22%;transform:translateX(-50%);z-index:9;pointer-events:none;opacity:0;padding:9px 14px;border-radius:999px;background:rgba(7,15,27,.82);border:1px solid rgba(103,234,255,.16);color:#dffaff;font-size:11px;font-weight:900;letter-spacing:1px;transition:opacity .12s}
-.overlay{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,5,10,.62);backdrop-filter:blur(11px);-webkit-backdrop-filter:blur(11px);padding:20px;z-index:20}
-.overlayPanel{width:min(600px,calc(100vw - 30px));padding:24px;border-radius:24px;background:linear-gradient(180deg,rgba(13,26,46,.96),rgba(5,10,19,.97));border:1px solid rgba(155,224,255,.14);box-shadow:0 24px 100px rgba(0,0,0,.55)}
+.overlay{position:absolute;inset:0;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;background:rgba(2,5,10,.62);backdrop-filter:blur(11px);-webkit-backdrop-filter:blur(11px);padding: max(18px,env(safe-area-inset-top)) 14px max(22px,env(safe-area-inset-bottom));z-index:20}
+.overlayPanel{width:min(600px,calc(100vw - 30px));max-height:calc(100dvh - 36px);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;padding:24px;border-radius:24px;background:linear-gradient(180deg,rgba(13,26,46,.96),rgba(5,10,19,.97));border:1px solid rgba(155,224,255,.14);box-shadow:0 24px 100px rgba(0,0,0,.55)}
 .overlayPanel h2{margin:0;font-size:26px;letter-spacing:2px}.overlayGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:16px}.menuBtn{height:48px;border-radius:14px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.07);color:#e9f8ff;font-weight:900}.menuBtn:active{transform:scale(.98)}.menuBtn.primaryAlt{background:linear-gradient(90deg,#42d9ff,#5cf0bd);color:#06111a;border:0}.menuBtn.danger{border-color:rgba(255,95,133,.2);color:#ffc4d1}
 .field{margin-top:16px}.field label{display:flex;justify-content:space-between;color:#9bb0c7;font-size:11px;letter-spacing:.7px}.field input[type=range]{width:100%;accent-color:#61e8ff}.field select{width:100%;margin-top:7px;height:42px;border-radius:12px;background:#0b1524;color:#e8fbff;border:1px solid rgba(150,220,255,.14);padding:0 10px}.checkrow{display:flex;justify-content:space-between;align-items:center;padding:12px 0;color:#a6bbd0;font-size:12px}.checkrow input{width:20px;height:20px;accent-color:#61e8ff}
 .loadout{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}.weaponCard{padding:14px;border-radius:16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);cursor:pointer}.weaponCard.active{border-color:rgba(97,232,255,.52);box-shadow:inset 0 0 24px rgba(97,232,255,.05),0 0 24px rgba(97,232,255,.07)}.weaponCard b{display:block}.weaponCard small{display:block;color:#7f95ad;margin-top:5px;line-height:1.5}.badgeRow{margin-top:10px;display:flex;gap:7px;flex-wrap:wrap}.tiny{font-size:9px;color:#8196ae;padding:4px 7px;border-radius:999px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.05)}
-@media(max-width:760px){#lookZone{left:38%;top:14%;bottom:20%}.overlayGrid{grid-template-columns:1fr}.loadout{grid-template-columns:1fr}.actionRow{top:91px}.topbar{z-index:6}#reloadBtn,#weaponBtn{right:150px}#aimBtn,#dashBtn{right:230px}}
+@media(max-width:760px){#lookZone{left:38%;top:14%;bottom:20%;pointer-events:none}.overlayGrid{grid-template-columns:1fr}.loadout{grid-template-columns:1fr}.actionRow{top:91px}.topbar{z-index:6}#reloadBtn,#weaponBtn{right:150px}#aimBtn,#dashBtn{right:230px}}
 @media(max-width:520px){#fire{width:98px;height:98px}#reloadBtn,#weaponBtn{right:128px}#aimBtn,#dashBtn{right:134px}#reloadBtn{bottom:26px}#weaponBtn{bottom:82px}#aimBtn{bottom:26px}#dashBtn{display:none}.leftCard{min-width:165px}.rightCard{min-width:135px}.ammoBig{font-size:25px}}
 </style>
 
@@ -131,7 +131,7 @@ button{font:inherit}
   <div id="lookZone" aria-label="右侧视角区域"></div>
   <div class="topbar">
     <div class="leftCard card">
-      <div class="kicker">SURVIVAL // ACTIVE</div>
+      <div class="kicker">生存状态 · 正在进行</div>
       <div class="row"><span>生存时间</span><span class="value timer" id="timeTxt">00:00</span></div>
       <div class="row"><span>击杀</span><span class="value" id="killsTxt">0</span></div>
       <div class="row"><span>波次</span><span class="value" id="waveTxt">WAVE 1</span></div>
@@ -142,64 +142,64 @@ button{font:inherit}
     </div>
     <div class="midBadge" id="statusBadge">NEON STRIKE // SURVIVAL</div>
     <div class="rightCard card">
-      <div class="kicker" id="weaponName">PULSE RIFLE</div>
+      <div class="kicker" id="weaponName">脉冲步枪</div>
       <div class="ammoBig" id="ammoTxt">30 <small>/ 180</small></div>
-      <div class="ammoState" id="ammoState">READY · HOLD FIRE</div>
+      <div class="ammoState" id="ammoState">准备就绪 · 按住开火</div>
     </div>
   </div>
   <div class="actionRow">
     <button class="iconBtn ui" id="soundBtn" type="button">🔊</button>
-    <button class="iconBtn ui viewLabel" id="viewBtn" type="button">🌐 全图</button>
-    <button class="iconBtn ui" id="fullBtn" type="button">⛶</button>
-    <button class="iconBtn ui" id="pauseBtn" type="button">Ⅱ</button>
-    <button class="iconBtn ui" id="settingsBtn" type="button">⚙</button>
+    <button class="iconBtn ui viewLabel" id="viewBtn" type="button">🌐 全地图</button>
+    <button class="iconBtn ui" id="fullBtn" type="button" aria-label="全屏" title="全屏">全屏</button>
+    <button class="iconBtn ui" id="pauseBtn" type="button" aria-label="暂停">暂停</button>
+    <button class="iconBtn ui" id="settingsBtn" type="button">设置</button>
   </div>
   <div id="perf">NEON STRIKE · OFFLINE · ANDROID READY · DPR ≤ 1.5</div>
   <div id="hint">左摇杆移动 · 智能瞄准自动锁敌 · FIRE开火 · R换弹 · DASH动作</div>
   <div id="crosshair"><div class="dot"></div></div>
   <div id="hitmarker">✕</div><div id="toast"></div><div id="damageVignette"></div>
-  <div id="joystick" class="ui" aria-label="移动摇杆" role="application"><div class="centerMark"></div><div id="stick"></div><div id="joyLabel">MOVE</div></div>
-  <button id="fire" class="ui" type="button" aria-label="开火">FIRE<span class="sub">HOLD TO SHOOT</span></button>
-  <button id="reloadBtn" class="compactAction" type="button">↻<br>RELOAD</button>
-  <button id="weaponBtn" class="compactAction" type="button">◎<br>WEAPON</button>
-  <button id="aimBtn" class="compactAction" type="button">◎<br>AUTO AIM</button>
-  <button id="dashBtn" class="compactAction" type="button">✦<br>DASH</button>
+  <div id="joystick" class="ui" aria-label="移动摇杆" role="application"><div class="centerMark"></div><div id="stick"></div><div id="joyLabel">移动</div></div>
+  <button id="fire" class="ui" type="button" aria-label="开火">开火<span class="sub">按住连续射击</span></button>
+  <button id="reloadBtn" class="compactAction" type="button">↻<br>换弹</button>
+  <button id="weaponBtn" class="compactAction" type="button">◎<br>切换武器</button>
+  <button id="aimBtn" class="compactAction" type="button">◎<br>自动瞄准</button>
+  <button id="dashBtn" class="compactAction" type="button">✦<br>冲刺</button>
 
   <div id="message" class="overlay">
     <div class="modal">
-      <div class="kicker">RUN ENDED</div>
-      <h1 id="endTitle">SURVIVAL OVER</h1>
+      <div class="kicker">本局结束</div>
+      <h1 id="endTitle">生存结束</h1>
       <p id="endSub">战术回顾已完成。</p>
       <div class="modalGrid">
-        <div class="statBox"><div class="n" id="endTime">00:00</div><div class="l">SURVIVED</div></div>
-        <div class="statBox"><div class="n" id="endKills">0</div><div class="l">KILLS</div></div>
-        <div class="statBox"><div class="n" id="endWave">1</div><div class="l">WAVE</div></div>
-        <div class="statBox"><div class="n" id="endAccuracy">0%</div><div class="l">ACCURACY</div></div>
-        <div class="statBox"><div class="n" id="endScore">0</div><div class="l">COMBAT SCORE</div></div>
-        <div class="statBox"><div class="n" id="endWeapon">RIFLE</div><div class="l">LAST WEAPON</div></div>
+        <div class="statBox"><div class="n" id="endTime">00:00</div><div class="l">生存时间</div></div>
+        <div class="statBox"><div class="n" id="endKills">0</div><div class="l">击杀数</div></div>
+        <div class="statBox"><div class="n" id="endWave">1</div><div class="l">波次</div></div>
+        <div class="statBox"><div class="n" id="endAccuracy">0%</div><div class="l">命中率</div></div>
+        <div class="statBox"><div class="n" id="endScore">0</div><div class="l">战斗得分</div></div>
+        <div class="statBox"><div class="n" id="endWeapon">RIFLE</div><div class="l">最后使用武器</div></div>
       </div>
       <div class="overlayGrid"><button class="menuBtn primaryAlt ui" id="restartBtn" type="button">再次开始</button><button class="menuBtn ui" id="endMenuBtn" type="button">返回主菜单</button></div>
     </div>
   </div>
 
-  <div id="pausePanel" class="overlay"><div class="overlayPanel"><div class="kicker">TACTICAL PAUSE</div><h2>战术暂停</h2><p style="color:#8fa5bd;line-height:1.6">战斗已冻结。所有移动、射击与 AI 更新均停止。</p><div class="overlayGrid"><button class="menuBtn primaryAlt ui" id="resumeBtn">继续战斗</button><button class="menuBtn ui" id="pauseRestartBtn">重新开始</button><button class="menuBtn ui" id="pauseSettingsBtn">设置</button><button class="menuBtn danger ui" id="pauseMenuBtn">返回主菜单</button></div></div></div>
+  <div id="pausePanel" class="overlay"><div class="overlayPanel"><div class="kicker">战术控制</div><h2>战术暂停</h2><p style="color:#8fa5bd;line-height:1.6">战斗已冻结。所有移动、射击与 AI 更新均停止。</p><div class="overlayGrid"><button class="menuBtn primaryAlt ui" id="resumeBtn">继续战斗</button><button class="menuBtn ui" id="pauseRestartBtn">重新开始</button><button class="menuBtn ui" id="pauseSettingsBtn">设置</button><button class="menuBtn danger ui" id="pauseMenuBtn">返回主菜单</button></div></div></div>
 
-  <div id="settingsPanel" class="overlay"><div class="overlayPanel"><div class="kicker">SYSTEM SETTINGS</div><h2>设置</h2>
+  <div id="settingsPanel" class="overlay"><div class="overlayPanel"><div class="kicker">系统设置</div><h2>设置</h2>
     <div class="field"><label><span>主音量</span><strong id="volumeVal">78%</strong></label><input id="volumeRange" type="range" min="0" max="100" value="78"></div>
     <div class="field"><label><span>触摸灵敏度</span><strong id="sensVal">1.00×</strong></label><input id="sensRange" type="range" min="50" max="180" value="100"></div>
-    <div class="field"><label><span>画质</span></label><select id="qualitySelect"><option value="low">低 · 节能</option><option value="medium" selected>中 · 推荐</option><option value="high">高 · 特效</option></select></div>
+    <div class="field"><label><span>画面质量</span></label><select id="qualitySelect"><option value="low">低 · 节能</option><option value="medium" selected>中 · 推荐</option><option value="high">高 · 特效</option></select></div>
     <div class="checkrow"><span>震动反馈</span><input id="vibrationCheck" type="checkbox" checked></div>
     <div class="overlayGrid"><button class="menuBtn primaryAlt ui" id="settingsSaveBtn">保存</button><button class="menuBtn ui" id="settingsCloseBtn">关闭</button></div>
   </div></div>
 
-  <div id="loadoutPanel" class="overlay"><div class="overlayPanel"><div class="kicker">LOADOUT</div><h2>武器库</h2><div class="loadout" id="loadoutGrid"></div><div class="overlayGrid"><button class="menuBtn primaryAlt ui" id="loadoutApplyBtn">装备并返回</button><button class="menuBtn ui" id="loadoutCloseBtn">关闭</button></div></div></div>
+  <div id="loadoutPanel" class="overlay"><div class="overlayPanel"><div class="kicker">装备配置</div><h2>武器库</h2><div class="loadout" id="loadoutGrid"></div><div class="overlayGrid"><button class="menuBtn primaryAlt ui" id="loadoutApplyBtn">装备并返回</button><button class="menuBtn ui" id="loadoutCloseBtn">关闭</button></div></div></div>
 
   <div id="startScreen">
     <div class="startBox">
-      <div class="brand">NEON STRIKE // PRODUCTION BUILD</div>
-      <div class="startTitle">SURVIVAL<br><span>PROTOCOL</span></div>
+      <div class="brand">霓虹突击 · 正式测试版</div>
+      <div class="startTitle">生存<br><span>行动</span></div>
       <div class="startSub">移动端离线生存射击。保留原版核心玩法，并升级为数据驱动武器、状态机 AI、掩体地图、完整战斗 HUD、移动触控与 Android 原生壳。</div>
-      <div class="chips"><div class="chip">SURVIVAL</div><div class="chip">3 WEAPONS</div><div class="chip">AI FSM</div><div class="chip">LOCAL AUDIO</div><div class="chip">ANDROID WEBVIEW</div></div>
+      <div class="chips"><div class="chip">生存模式</div><div class="chip">三种武器</div><div class="chip">智能敌人</div><div class="chip">本地音效</div><div class="chip">安卓适配</div></div>
       <div class="overlayGrid" style="margin-top:20px"><button class="menuBtn primaryAlt ui" id="startBtn" type="button">开始游戏</button><button class="menuBtn ui" id="modeBtn" type="button">模式：生存</button><button class="menuBtn ui" id="loadoutMenuBtn" type="button">武器</button><button class="menuBtn ui" id="characterBtn" type="button">角色：STRIKER</button><button class="menuBtn ui" id="settingsMenuBtn" type="button">设置</button><button class="menuBtn danger ui" id="exitBtn" type="button">退出</button></div>
       <div id="characterInfo" style="margin-top:12px;color:#6f86a0;font-size:10px;line-height:1.5;display:none">STRIKER // AEGIS：标准移动速度、标准护甲、无额外被动。</div>
     </div>
@@ -271,7 +271,7 @@ else if(e.stateTime<=0){setEnemyState(e,'Patrol')}
 const toward=(tx,ty,s)=>{const a=Math.atan2(ty-e.y,tx-e.x);moveEntity(e,Math.cos(a)*s*dt,Math.sin(a)*s*dt,e.r);if(Math.random()<dt*.8)sStep()};
 switch(e.state){case'Idle':break;case'Detect':break;case'Patrol':if(dist(e,{x:e.patrolX,y:e.patrolY})<55||e.stateTime<=0){e.patrolX=clamp(e.x+(Math.random()-.5)*700,80,mapSize().w-80);e.patrolY=clamp(e.y+(Math.random()-.5)*520,80,mapSize().h-80);setEnemyState(e,'Patrol')}toward(e.patrolX,e.patrolY,e.speed*.55);break;case'Chase':toward(e.targetX,e.targetY,e.speed*(e.variant==='charger'?1.18:1));break;case'Attack':{const a=Math.atan2(player.y-e.y,player.x-e.x);if(d<270)moveEntity(e,-Math.cos(a)*e.speed*.45*dt,-Math.sin(a)*e.speed*.45*dt,e.r);else if(d>430)moveEntity(e,Math.cos(a)*e.speed*.55*dt,Math.sin(a)*e.speed*.55*dt,e.r);if(e.attackCd<=0&&d<620){e.attackCd=e.variant==='charger'?1.05:1.25+Math.random()*.7;sEnemy();if(bullets.length<CFG.maxBullets){bullets.push({x:e.x+Math.cos(a)*34,y:e.y+Math.sin(a)*34,vx:Math.cos(a)*360,vy:Math.sin(a)*360,life:1.7,enemy:true,damage:e.variant==='charger'?12:8})}}break}case'Search':toward(e.targetX,e.targetY,e.speed*.72);break;case'Retreat':toward(e.x+(e.x-player.x),e.y+(e.y-player.y),e.speed*.9);if(e.stateTime<=0&&visible)setEnemyState(e,'Attack');break;case'Dead':break}}
 function particle(x,y,n=8,color='cyan',power=90){const limit=settings.quality==='low'?260:settings.quality==='high'?CFG.maxParticles:390;for(let i=0;i<n&&particles.length<limit;i++){const a=Math.random()*Math.PI*2,s=(.35+.65*Math.random())*power;particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:.16+Math.random()*.46,max:.64,r:1+Math.random()*2.6,color})}}
-function damageEnemy(e,amount){if(e.dead)return;e.hp-=amount;e.hit=.10;shotsHit++;hitMarkerUntil=performance.now()+100;sHit();particle(e.x,e.y,settings.quality==='low'?3:6,'cyan',90);if(e.hp<=0){e.dead=true;e.state='Dead';kills++;score=kills;combatScore+=100+wave*10;sKill();particle(e.x,e.y,settings.quality==='low'?8:18,'gold',170);showToast('TARGET ELIMINATED');}}
+function damageEnemy(e,amount){if(e.dead)return;e.hp-=amount;e.hit=.10;shotsHit++;hitMarkerUntil=performance.now()+100;sHit();particle(e.x,e.y,settings.quality==='low'?3:6,'cyan',90);if(e.hp<=0){e.dead=true;e.state='Dead';kills++;score=kills;combatScore+=100+wave*10;sKill();particle(e.x,e.y,settings.quality==='low'?8:18,'gold',170);showToast('目标已消灭');}}
 function fireOne(angle){const w=weapons[selectedWeapon];shotsFired++;const spread=(aimActive?.5:1)*w.spread;const a=angle+(Math.random()-.5)*spread;bullets.length>=CFG.maxBullets&&bullets.shift();bullets.push({x:player.x+Math.cos(a)*50,y:player.y+Math.sin(a)*50,vx:Math.cos(a)*w.bulletSpeed,vy:Math.sin(a)*w.bulletSpeed,life:w.range/w.bulletSpeed,enemy:false,damage:w.damage});particle(player.x+Math.cos(a)*46,player.y+Math.sin(a)*46,settings.quality==='low'?2:3,'gold',120)}
 function getAutoAimTarget(){if(!player||!enemies.length)return null;let best=null,bestScore=Infinity;for(const e of enemies){if(e.dead)continue;const d=dist(e,player);if(d>1100||!enemyCanSeePlayer(e))continue;const score=d+(e.variant==='charger'?-70:0);if(score<bestScore){bestScore=score;best=e}}return best}
 function updateAutoAim(){if(!aimActive||!player)return;const target=getAutoAimTarget();if(target)aimAngle=Math.atan2(target.y-player.y,target.x-player.x)}
@@ -292,7 +292,7 @@ function reset(){const m=mapSize();buildObstacles();const w=weapons[selectedWeap
 function updatePlayer(dt){updateAutoAim();let mx=(keys.d?1:0)-(keys.a?1:0),my=(keys.s?1:0)-(keys.w?1:0);if(joystick.active){mx=joystick.dx;my=joystick.dy}let len=Math.hypot(mx,my);if(len>1){mx/=len;my/=len;len=1}if(player.dash>0){player.dash-=dt;moveEntity(player,player.dashVx*dt,player.dashVy*dt,player.r)}else{const sp=CFG.moveSpeed*(keys.shift?1.35:1);moveEntity(player,mx*sp*dt,my*sp*dt,player.r)}player.dashCd=Math.max(0,player.dashCd-dt);player.invuln=Math.max(0,player.invuln-dt);if(len>.04&&Math.random()<dt*3.0)sStep();if(player.reload>0){player.reload-=dt*1000;if(player.reload<=0){const w=weapons[selectedWeapon],take=Math.min(w.mag-player.ammo,player.res);player.ammo+=take;player.res-=take;player.reload=0;showToast('RELOADED')}}if(mouseDown||fireDown)shoot()}
 function updateBullets(dt){for(let i=bullets.length-1;i>=0;i--){const b=bullets[i];b.x+=b.vx*dt;b.y+=b.vy*dt;b.life-=dt;if(b.life<=0||b.x<-600||b.y<-600||b.x>mapSize().w+600||b.y>mapSize().h+600){bullets.splice(i,1);continue}let blocked=false;for(const o of obstacles){if(circleRect(b.x,b.y,4,o)){blocked=true;break}}if(blocked){bullets.splice(i,1);continue}if(b.enemy){if(Math.hypot(b.x-player.x,b.y-player.y)<player.r+9){bullets.splice(i,1);takeDamage(b.damage||8)}continue}for(const e of enemies){if(e.dead)continue;if(Math.hypot(b.x-e.x,b.y-e.y)<e.r+7){b.life=0;damageEnemy(e,b.damage||10);break}}if(b.life<=0)bullets.splice(i,1)}}
 function update(dt){if(!running||paused||gameOver)return;elapsed+=dt;wave=Math.max(1,1+Math.floor(elapsed/30)+Math.floor(kills/12));updatePlayer(dt);spawnClock-=dt;const interval=Math.max(.34,1.25-wave*.035);if(spawnClock<=0){spawnEnemy();if(wave>=4&&Math.random()<.22)spawnEnemy();spawnClock=interval}aiClock-=dt;if(aiClock<=0){aiClock=CFG.aiTick;for(const e of enemies)updateEnemyAI(e,CFG.aiTick)}for(const e of enemies){if(e.dead)continue;const d=dist(e,player);if(d<e.r+player.r*.74&&player.dash<=0){takeDamage(e.variant==='charger'?14:7);const a=Math.atan2(player.y-e.y,player.x-e.x);moveEntity(e,-Math.cos(a)*18,-Math.sin(a)*18,e.r)}}updateBullets(dt);for(let i=particles.length-1;i>=0;i--){const p=particles[i];p.x+=p.vx*dt;p.y+=p.vy*dt;p.vx*=.94;p.vy*=.94;p.life-=dt;if(p.life<=0)particles.splice(i,1)}enemies=enemies.filter(e=>!e.dead&&e.x>-520&&e.x<mapSize().w+520&&e.y>-520&&e.y<mapSize().h+520).slice(-CFG.maxEnemies);shake=Math.max(0,shake-dt*16);uiClock-=dt;if(uiClock<=0){uiClock=.10;updateUI()}if(toastUntil<performance.now())$('toast').style.opacity='0'}
-function updateUI(){const w=weapons[selectedWeapon];$('timeTxt').textContent=fmtTime(elapsed);$('killsTxt').textContent=String(kills);$('waveTxt').textContent='WAVE '+wave;const threat=wave<3?'LOW':wave<6?'ELEVATED':wave<10?'HIGH':'CRITICAL';$('threatTxt').textContent=threat;$('ammoTxt').innerHTML=(player&&player.reload>0?'RELOAD':player?.ammo??0)+' <small>/ '+(player?.res??w.reserve)+'</small>';$('ammoState').textContent=player?.reload>0?'MAGAZINE SWAP…':player?.ammo===0?'EMPTY · TAP RELOAD':'READY · HOLD FIRE';$('weaponName').textContent=w.name;$('statusBadge').textContent=paused?'PAUSED // TACTICAL':`NEON STRIKE // WAVE ${wave}`;const hp=player?player.hp:100,ar=player?player.armor:50;$('hpBar').style.width=hp+'%';$('armorBarFill').style.width=(ar/50*100)+'%';$('hpTxt').textContent=Math.ceil(hp);$('armorTxt').textContent=Math.ceil(ar);$('aimBtn').innerHTML=aimActive?'◎<br>AUTO AIM':'◉<br>MANUAL';$('weaponBtn').innerHTML=`◎<br>${w.short}`}
+function updateUI(){const w=weapons[selectedWeapon];$('timeTxt').textContent=fmtTime(elapsed);$('killsTxt').textContent=String(kills);$('waveTxt').textContent='WAVE '+wave;const threat=wave<3?'LOW':wave<6?'ELEVATED':wave<10?'HIGH':'CRITICAL';$('threatTxt').textContent=threat;$('ammoTxt').innerHTML=(player&&player.reload>0?'RELOAD':player?.ammo??0)+' <small>/ '+(player?.res??w.reserve)+'</small>';$('ammoState').textContent=player?.reload>0?'MAGAZINE SWAP…':player?.ammo===0?'EMPTY · TAP RELOAD':'READY · HOLD FIRE';$('weaponName').textContent=w.name;$('statusBadge').textContent=paused?'PAUSED // TACTICAL':`NEON STRIKE // WAVE ${wave}`;const hp=player?player.hp:100,ar=player?player.armor:50;$('hpBar').style.width=hp+'%';$('armorBarFill').style.width=(ar/50*100)+'%';$('hpTxt').textContent=Math.ceil(hp);$('armorTxt').textContent=Math.ceil(ar);$('aimBtn').innerHTML=aimActive?'◎<br>自动瞄准':'◉<br>手动瞄准';$('weaponBtn').innerHTML=`◎<br>${w.short}`}
 function draw(){ctx.setTransform(dpr,0,0,dpr,0,0);ctx.fillStyle=bgPat;ctx.fillRect(0,0,W,H);if(!player)return;ctx.save();if(shake)ctx.translate((Math.random()-.5)*shake,(Math.random()-.5)*shake);const z=viewScale(),cam=camera();ctx.translate(W/2,H/2);ctx.scale(z,z);ctx.translate(-cam.x,-cam.y);const m=mapSize();ctx.fillStyle='#07111c';ctx.fillRect(-500,-500,m.w+1000,m.h+1000);ctx.strokeStyle='rgba(105,198,228,.055)';ctx.lineWidth=1;const step=160,sx=Math.floor((cam.x-W/(2*z))/step)*step-160,sy=Math.floor((cam.y-H/(2*z))/step)*step-160,ex=cam.x+W/(2*z)+160,ey=cam.y+H/(2*z)+160;for(let x=sx;x<ex;x+=step){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,m.h);ctx.stroke()}for(let y=sy;y<ey;y+=step){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(m.w,y);ctx.stroke()}ctx.fillStyle='rgba(7,19,30,.35)';ctx.fillRect(36,36,m.w-72,m.h-72);
 ctx.fillStyle='rgba(90,160,200,.08)';for(const o of obstacles){ctx.fillRect(o.x,o.y,o.w,o.h);ctx.strokeStyle='rgba(115,220,255,.22)';ctx.lineWidth=3;ctx.strokeRect(o.x,o.y,o.w,o.h);ctx.fillStyle='rgba(255,255,255,.035)';ctx.fillRect(o.x+10,o.y+10,o.w-20,8);ctx.fillStyle='rgba(90,160,200,.08)'}
 ctx.strokeStyle='rgba(4,8,13,.96)';ctx.lineWidth=42;ctx.strokeRect(0,0,m.w,m.h);ctx.strokeStyle='rgba(89,213,244,.58)';ctx.lineWidth=4;ctx.strokeRect(20,20,m.w-40,m.h-40);
@@ -339,15 +339,15 @@ function setDesktopAim(e){const r=c.getBoundingClientRect(),x=e.clientX-r.left,y
 c.addEventListener('pointermove',e=>{if(!player||e.pointerType!=='mouse'||look.active)return;setDesktopAim(e)},{passive:true});c.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse')return;e.preventDefault();audioInit();setDesktopAim(e);mouseDown=true;shoot()},{passive:false});c.addEventListener('pointerup',e=>{if(e.pointerType!=='mouse')return;mouseDown=false},{passive:false});
 addEventListener('blur',()=>{mouseDown=false;fireDown=false;joyReset()});
 addEventListener('keydown',e=>{const k=e.key.toLowerCase();keys[k]=true;if(['r','m','p','q',' '].includes(k))e.preventDefault();if(k==='r')reload();if(k==='m')toggleSound();if(k==='p')togglePause();if(k==='q')switchWeapon();if(k===' ')dash();if(running&&!paused)audioInit()});addEventListener('keyup',e=>{keys[e.key.toLowerCase()]=false});
-function togglePause(){if(!running||gameOver)return;paused=!paused;$('pausePanel').style.display=paused?'flex':'none';$('pauseBtn').textContent=paused?'▶':'Ⅱ';updateUI()}
-function toggleSound(){soundOn=!soundOn;$('soundBtn').textContent=soundOn?'🔊':'🔇';if(soundOn)audioInit()}
+function togglePause(){if(!running||gameOver)return;paused=!paused;$('pausePanel').style.display=paused?'flex':'none';$('pauseBtn').textContent=paused?'继续':'暂停';updateUI()}
+function toggleSound(){soundOn=!soundOn;$('soundBtn').textContent=soundOn?'声音开':'声音关';if(soundOn)audioInit()}
 function startGame(){audioInit();sStart();$('startScreen').style.display='none';reset();running=true;paused=false;last=performance.now();if(!raf)raf=requestAnimationFrame(loop);showWave(1)}
 function returnToMenu(){running=false;paused=false;gameOver=false;$('message').style.display='none';$('pausePanel').style.display='none';$('settingsPanel').style.display='none';$('loadoutPanel').style.display='none';$('startScreen').style.display='flex';updateUI();draw()}
 function restartGame(){audioInit();sStart();$('message').style.display='none';$('pausePanel').style.display='none';reset();running=true;paused=false;last=performance.now()}
 function showWave(n){if(n===1||n===wave){const b=$('ux-banner');if(!b)return;$('uxBannerBig').textContent='WAVE '+n;$('uxBannerSmall').textContent=n%5===0?'ELITE PRESSURE DETECTED':'THREAT LEVEL RISING';b.classList.add('show');clearTimeout(window.__waveTimer);window.__waveTimer=setTimeout(()=>b.classList.remove('show'),1100)}}
 function openLoadout(){renderLoadout();$('loadoutPanel').style.display='flex'}
 function renderLoadout(){const g=$('loadoutGrid');g.innerHTML='';weapons.forEach((w,i)=>{const el=document.createElement('div');el.className='weaponCard'+(i===selectedWeapon?' active':'');el.innerHTML=`<b>${w.name}</b><small>DMG ${w.damage} · MAG ${w.mag}<br>ROF ${(60000/w.fireGap).toFixed(1)}/s · RELOAD ${(w.reload/1000).toFixed(1)}s</small><div class="badgeRow"><span class="tiny">${w.short}</span><span class="tiny">RANGE ${w.range}</span></div>`;el.onclick=()=>{selectedWeapon=i;renderLoadout()};g.appendChild(el)})}
-$('pauseBtn').addEventListener('click',e=>{e.stopPropagation();togglePause()});$('soundBtn').addEventListener('click',e=>{e.stopPropagation();audioInit();toggleSound()});$('viewBtn').addEventListener('click',e=>{e.stopPropagation();wholeMap=!wholeMap;$('viewBtn').textContent=wholeMap?'🌐 全图':'🔭 战斗';draw()});$('fullBtn').addEventListener('click',async e=>{e.stopPropagation();audioInit();try{if(document.fullscreenElement)await document.exitFullscreen();else if(document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen({navigationUI:'hide'})}catch(_){}});$('settingsBtn').addEventListener('click',e=>{e.stopPropagation();openSettings()});$('reloadBtn').addEventListener('click',reload);$('weaponBtn').addEventListener('click',switchWeapon);$('aimBtn').addEventListener('click',()=>{aimActive=!aimActive;updateUI();$('crosshair').style.transform=aimActive?'translate(-50%,-50%) scale(.86)':'translate(-50%,-50%) scale(1)';showToast(aimActive?'智能瞄准：开启':'智能瞄准：关闭')});$('dashBtn').addEventListener('click',dash);$('startBtn').addEventListener('click',startGame);$('restartBtn').addEventListener('click',restartGame);$('endMenuBtn').addEventListener('click',returnToMenu);$('resumeBtn').addEventListener('click',togglePause);$('pauseRestartBtn').addEventListener('click',restartGame);$('pauseSettingsBtn').addEventListener('click',openSettings);$('pauseMenuBtn').addEventListener('click',returnToMenu);$('settingsMenuBtn').addEventListener('click',openSettings);$('settingsBtn').addEventListener('click',openSettings);$('settingsCloseBtn').addEventListener('click',closeSettings);$('settingsSaveBtn').addEventListener('click',saveSettings);$('volumeRange').addEventListener('input',updateSettingLabels);$('sensRange').addEventListener('input',updateSettingLabels);$('loadoutMenuBtn').addEventListener('click',openLoadout);$('loadoutCloseBtn').addEventListener('click',()=>{$('loadoutPanel').style.display='none'});$('loadoutApplyBtn').addEventListener('click',()=>{$('loadoutPanel').style.display='none';showToast(weapons[selectedWeapon].name+' EQUIPPED')});$('modeBtn').addEventListener('click',()=>showToast('SURVIVAL MODE ONLY'));$('characterBtn').addEventListener('click',()=>{$('characterInfo').style.display=$('characterInfo').style.display==='none'?'block':'none'});$('exitBtn').addEventListener('click',()=>{if(window.AndroidApp?.exit)window.AndroidApp.exit();else if(history.length>1)history.back();else showToast('ANDROID APP BACK TO EXIT')});
+$('pauseBtn').addEventListener('click',e=>{e.stopPropagation();togglePause()});$('soundBtn').addEventListener('click',e=>{e.stopPropagation();audioInit();toggleSound()});$('viewBtn').addEventListener('click',e=>{e.stopPropagation();wholeMap=!wholeMap;$('viewBtn').textContent=wholeMap?'🌐 全地图':'🔭 战斗视角';draw()});$('fullBtn').addEventListener('click',async e=>{e.stopPropagation();audioInit();try{if(document.fullscreenElement)await document.exitFullscreen();else if(document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen({navigationUI:'hide'})}catch(_){}});$('settingsBtn').addEventListener('click',e=>{e.stopPropagation();openSettings()});$('reloadBtn').addEventListener('click',reload);$('weaponBtn').addEventListener('click',switchWeapon);$('aimBtn').addEventListener('click',()=>{aimActive=!aimActive;updateUI();$('crosshair').style.transform=aimActive?'translate(-50%,-50%) scale(.86)':'translate(-50%,-50%) scale(1)';showToast(aimActive?'自动瞄准：已开启':'自动瞄准：已关闭')});$('dashBtn').addEventListener('click',dash);$('startBtn').addEventListener('click',startGame);$('restartBtn').addEventListener('click',restartGame);$('endMenuBtn').addEventListener('click',returnToMenu);$('resumeBtn').addEventListener('click',togglePause);$('pauseRestartBtn').addEventListener('click',restartGame);$('pauseSettingsBtn').addEventListener('click',openSettings);$('pauseMenuBtn').addEventListener('click',returnToMenu);$('settingsMenuBtn').addEventListener('click',openSettings);$('settingsBtn').addEventListener('click',openSettings);$('settingsCloseBtn').addEventListener('click',closeSettings);$('settingsSaveBtn').addEventListener('click',saveSettings);$('volumeRange').addEventListener('input',updateSettingLabels);$('sensRange').addEventListener('input',updateSettingLabels);$('loadoutMenuBtn').addEventListener('click',openLoadout);$('loadoutCloseBtn').addEventListener('click',()=>{$('loadoutPanel').style.display='none'});$('loadoutApplyBtn').addEventListener('click',()=>{$('loadoutPanel').style.display='none';showToast(weapons[selectedWeapon].name+' EQUIPPED')});$('modeBtn').addEventListener('click',()=>showToast('SURVIVAL MODE ONLY'));$('characterBtn').addEventListener('click',()=>{$('characterInfo').style.display=$('characterInfo').style.display==='none'?'block':'none'});$('exitBtn').addEventListener('click',()=>{if(window.AndroidApp?.exit)window.AndroidApp.exit();else if(history.length>1)history.back();else showToast('请使用手机返回键退出游戏')});
 loadSettings();
 function resize(){dpr=Math.min(window.devicePixelRatio||1,1.5);W=innerWidth;H=innerHeight;c.width=Math.max(1,Math.floor(W*dpr));c.height=Math.max(1,Math.floor(H*dpr));ctx.setTransform(dpr,0,0,dpr,0,0);draw()}
 addEventListener('resize',resize,{passive:true});

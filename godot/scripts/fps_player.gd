@@ -22,6 +22,7 @@ var fire_cooldown := 0.0
 var look_delta := Vector2.ZERO
 var mobile_move := Vector2.ZERO
 var mobile_fire := false
+var jump_requested := false
 var gravity := 18.0
 var camera: Camera3D
 var muzzle: MeshInstance3D
@@ -127,12 +128,16 @@ func _physics_process(delta: float) -> void:
 
     if not is_on_floor():
         velocity.y -= gravity * delta
-    elif Input.is_action_just_pressed("jump"):
+    elif Input.is_action_just_pressed("jump") or jump_requested:
         velocity.y = 6.0
+        jump_requested = false
 
     velocity.x = move_toward(velocity.x, direction.x * move_speed, 28.0 * delta)
     velocity.z = move_toward(velocity.z, direction.z * move_speed, 28.0 * delta)
     move_and_slide()
+
+func request_jump() -> void:
+    jump_requested = true
 
 func shoot() -> void:
     if is_reloading:

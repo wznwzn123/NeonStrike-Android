@@ -22,6 +22,7 @@ func _ready() -> void:
     _load_settings()
     Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
     audio = AUDIO_SCRIPT.new()
+    audio.name = "NeonAudio"
     add_child(audio)
     audio.set_music_enabled(settings.music)
     audio.set_sfx_enabled(settings.sfx)
@@ -253,7 +254,10 @@ func _show_panel(heading: String, primary_text: String, can_resume: bool) -> voi
     title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
     title.add_theme_font_size_override("font_size", 30)
     column.add_child(title)
-    _add_menu_button(column, primary_text, _resume_game if can_resume else _restart_game)
+    var primary_action: Callable = Callable(self, "_resume_game")
+    if not can_resume:
+        primary_action = Callable(self, "_restart_game")
+    _add_menu_button(column, primary_text, primary_action)
     if can_resume:
         _add_menu_button(column, "设置", _show_settings)
         _add_menu_button(column, "返回游戏", _resume_game)

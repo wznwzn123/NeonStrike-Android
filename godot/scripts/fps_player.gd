@@ -4,20 +4,23 @@ class_name FPSPlayer
 signal health_changed(value: int)
 signal ammo_changed(current: int, reserve: int)
 signal eliminated
+signal shot_fired
+signal reload_finished
 
 @export var move_speed := 6.2
 @export var mouse_sensitivity := 0.0022
 @export var touch_sensitivity := 0.004
 @export var max_health := 100
 @export var magazine_size := 30
-@export var fire_rate := 0.105
-@export var damage := 34
+@export var fire_rate := 0.14
+@export var damage := 50
 @export var reload_seconds := 1.35
 
 var health := 100
 var ammo := 30
 var reserve_ammo := 120
 var is_reloading := false
+var is_alive := true
 var fire_cooldown := 0.0
 var look_delta := Vector2.ZERO
 var mobile_move := Vector2.ZERO
@@ -43,13 +46,11 @@ func _build_body() -> void:
     collision.shape = capsule
     collision.position.y = 0.9
     add_child(collision)
-
     camera = Camera3D.new()
     camera.position = Vector3(0, 1.58, 0)
     camera.fov = 82.0
     camera.current = true
     add_child(camera)
-
     var gun := MeshInstance3D.new()
     var gun_mesh := BoxMesh.new()
     gun_mesh.size = Vector3(0.18, 0.16, 0.62)
@@ -61,7 +62,6 @@ func _build_body() -> void:
     gun_mat.roughness = 0.28
     gun.material_override = gun_mat
     camera.add_child(gun)
-
     muzzle = MeshInstance3D.new()
     var flash := SphereMesh.new()
     flash.radius = 0.055
@@ -97,17 +97,18 @@ func _add_action(action: String, keys: Array) -> void:
         InputMap.action_add_event(action, event)
 
 func _unhandled_input(event: InputEvent) -> void:
+    if not is_alive:
+        return
     if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
         look_delta -= event.relative * mouse_sensitivity
     elif event is InputEventScreenDrag:
         var width := get_viewport().get_visible_rect().size.x
         if event.position.x > width * 0.38:
             look_delta -= event.relative * touch_sensitivity
-    elif event is InputEventScreenTouch and event.pressed:
-        if event.position.x > get_viewport().get_visible_rect().size.x * 0.38:
-            look_delta = Vector2.ZERO
 
 func _process(delta: float) -> void:
+    if not is_alive:
+        return
     fire_cooldown = maxf(0.0, fire_cooldown - delta)
     muzzle.visible = fire_cooldown > fire_rate * 0.72
     if Input.is_action_just_pressed("reload"):
@@ -116,10 +117,11 @@ func _process(delta: float) -> void:
         shoot()
 
 func _physics_process(delta: float) -> void:
+    if not is_alive:
+        return
     rotate_y(look_delta.x)
     camera.rotation.x = clampf(camera.rotation.x + look_delta.y, deg_to_rad(-82), deg_to_rad(82))
     look_delta = Vector2.ZERO
-
     var input_dir := Vector2(
         Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
         Input.get_action_strength("move_back") - Input.get_action_strength("move_forward")
@@ -128,22 +130,21 @@ func _physics_process(delta: float) -> void:
         input_dir = mobile_move
     input_dir = input_dir.limit_length(1.0)
     var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-
     if not is_on_floor():
         velocity.y -= gravity * delta
     elif Input.is_action_just_pressed("jump") or jump_requested:
         velocity.y = 6.0
         jump_requested = false
-
     velocity.x = move_toward(velocity.x, direction.x * move_speed, 28.0 * delta)
     velocity.z = move_toward(velocity.z, direction.z * move_speed, 28.0 * delta)
     move_and_slide()
 
 func request_jump() -> void:
-    jump_requested = true
+    if is_alive:
+        jump_requested = true
 
 func shoot() -> void:
-    if is_reloading:
+    if not is_alive or is_reloading:
         return
     if ammo <= 0:
         reload()
@@ -151,6 +152,7 @@ func shoot() -> void:
     ammo -= 1
     fire_cooldown = fire_rate
     ammo_changed.emit(ammo, reserve_ammo)
+    shot_fired.emit()
     var query := PhysicsRayQueryParameters3D.create(
         camera.global_position,
         camera.global_position - camera.global_basis.z * 110.0
@@ -164,21 +166,28 @@ func shoot() -> void:
             target.take_damage(damage)
 
 func reload() -> void:
-    if is_reloading or ammo == magazine_size or reserve_ammo <= 0:
+    if not is_alive or is_reloading or ammo == magazine_size or reserve_ammo <= 0:
         return
     is_reloading = true
     await get_tree().create_timer(reload_seconds).timeout
+    if not is_inside_tree() or not is_alive:
+        return
     var needed := magazine_size - ammo
     var loaded := mini(needed, reserve_ammo)
     ammo += loaded
     reserve_ammo -= loaded
     is_reloading = false
     ammo_changed.emit(ammo, reserve_ammo)
+    reload_finished.emit()
 
 func take_damage(amount: int) -> void:
+    if not is_alive:
+        return
     health = maxi(0, health - amount)
     health_changed.emit(health)
     if health <= 0:
+        is_alive = false
+        mobile_fire = false
         eliminated.emit()
         set_physics_process(false)
         set_process(false)

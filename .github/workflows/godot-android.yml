@@ -69,7 +69,10 @@ jobs:
       - name: Import and validate project scripts
         run: godot --headless --editor --path godot --import --quit
 
-      - name: Run headless gameplay smoke test\n        run: godot --headless --path godot --quit-after 300\n\n      - name: Diagnose Android export prerequisites
+      - name: Run headless gameplay smoke test
+        run: godot --headless --path godot --quit-after 300
+
+      - name: Diagnose Android export prerequisites
         shell: bash
         run: |
           echo "ANDROID_HOME=$ANDROID_HOME"
@@ -84,7 +87,10 @@ jobs:
           mkdir -p godot/build
           godot --headless --verbose --path godot --export-debug "Android" build/NeonStrike.apk
 
-      - name: Verify APK package\n        run: "$ANDROID_HOME/build-tools/34.0.0/aapt" dump badging godot/build/NeonStrike.apk\n\n      - name: Upload APK
+      - name: Verify APK package
+        run: "$ANDROID_HOME/build-tools/34.0.0/aapt" dump badging godot/build/NeonStrike.apk
+
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: NeonStrike-Godot-Android

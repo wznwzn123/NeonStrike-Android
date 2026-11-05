@@ -69,6 +69,9 @@ jobs:
       - name: Import and validate project scripts
         run: godot --headless --editor --path godot --import --quit
 
+      - name: Headless runtime smoke test
+        run: godot --headless --path godot --quit-after 300
+
       - name: Diagnose Android export prerequisites
         shell: bash
         run: |

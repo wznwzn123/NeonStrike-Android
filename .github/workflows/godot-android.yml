@@ -70,7 +70,7 @@ jobs:
         run: godot --headless --editor --path godot --import --quit
 
       - name: Headless runtime smoke test
-        run: godot --headless --path godot --quit-after 300
+        run: godot --headless --path godot --quit-after 1800
 
       - name: Diagnose Android export prerequisites
         shell: bash

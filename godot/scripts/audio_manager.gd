@@ -6,6 +6,7 @@ var sfx_player: AudioStreamPlayer
 var music_enabled := true
 var sfx_enabled := true
 var master_volume := 0.75
+var effect_cache: Dictionary = {}
 
 func _ready() -> void:
     process_mode = Node.PROCESS_MODE_ALWAYS
@@ -17,6 +18,8 @@ func _ready() -> void:
     sfx_player = AudioStreamPlayer.new()
     sfx_player.bus = "Master"
     add_child(sfx_player)
+    for effect in ["fire", "hit", "reload", "hurt"]:
+        effect_cache[effect] = _make_effect(effect)
     if music_enabled:
         music_player.play()
 
@@ -82,7 +85,7 @@ func _make_effect(kind: String) -> AudioStreamWAV:
 func play_effect(kind: String) -> void:
     if not sfx_enabled:
         return
-    sfx_player.stream = _make_effect(kind)
+    if not effect_cache.has(kind):\n        return\n    sfx_player.stream = effect_cache[kind]
     sfx_player.play()
 
 func set_music_enabled(enabled: bool) -> void:

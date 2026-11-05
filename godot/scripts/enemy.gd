@@ -4,20 +4,20 @@ class_name NeonEnemy
 signal died
 
 @export var max_health := 100
-@export var move_speed := 2.7
-@export var attack_range := 13.0
-@export var attack_damage := 8
-@export var attack_interval := 1.15
+@export var move_speed := 2.3
+@export var attack_range := 2.2
+@export var attack_damage := 5
+@export var attack_interval := 2.0
 
 var health := 100
 var target: Node3D
 var attack_timer := 0.0
 var gravity := 18.0
 var body_mesh: MeshInstance3D
-var health_bar: MeshInstance3D
 
 func _ready() -> void:
     health = max_health
+    attack_timer = randf_range(0.4, 1.8)
     _build_enemy()
 
 func _build_enemy() -> void:
@@ -28,7 +28,6 @@ func _build_enemy() -> void:
     collision.shape = capsule
     collision.position.y = 0.88
     add_child(collision)
-
     body_mesh = MeshInstance3D.new()
     var mesh := CapsuleMesh.new()
     mesh.radius = 0.4
@@ -37,13 +36,12 @@ func _build_enemy() -> void:
     body_mesh.position.y = 0.88
     var material := StandardMaterial3D.new()
     material.albedo_color = Color(0.55, 0.08, 0.14)
-    material.metallic = 0.55
-    material.roughness = 0.38
+    material.metallic = 0.4
+    material.roughness = 0.5
     material.emission_enabled = true
-    material.emission = Color(0.22, 0.015, 0.035)
+    material.emission = Color(0.16, 0.01, 0.025)
     body_mesh.material_override = material
     add_child(body_mesh)
-
     var core := MeshInstance3D.new()
     var core_mesh := SphereMesh.new()
     core_mesh.radius = 0.16
@@ -58,13 +56,15 @@ func _build_enemy() -> void:
     add_child(core)
 
 func _physics_process(delta: float) -> void:
-    if not is_instance_valid(target):
+    if not is_instance_valid(target) or not target.get("is_alive"):
+        velocity.x = move_toward(velocity.x, 0.0, 18.0 * delta)
+        velocity.z = move_toward(velocity.z, 0.0, 18.0 * delta)
         return
     attack_timer = maxf(0.0, attack_timer - delta)
     var to_target := target.global_position - global_position
     to_target.y = 0
     var distance := to_target.length()
-    if distance > attack_range * 0.72:
+    if distance > attack_range:
         var direction := to_target.normalized()
         velocity.x = direction.x * move_speed
         velocity.z = direction.z * move_speed
@@ -81,6 +81,8 @@ func _physics_process(delta: float) -> void:
     move_and_slide()
 
 func take_damage(amount: int) -> void:
+    if health <= 0:
+        return
     health -= amount
     if health <= 0:
         died.emit()

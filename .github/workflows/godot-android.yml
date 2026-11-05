@@ -63,7 +63,7 @@ jobs:
       - name: Export Android APK
         run: |
           mkdir -p godot/build
-          godot --headless --path godot --export-debug "Android" godot/build/NeonStrike.apk
+          godot --headless --verbose --path godot --export-debug "Android" godot/build/NeonStrike.apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v4

@@ -71,7 +71,14 @@ jobs:
         run: godot --headless --editor --path godot --import --quit
 
       - name: Headless runtime smoke test
-        run: godot --headless --path godot --quit-after 1800
+        shell: bash
+        run: |
+          set -o pipefail
+          godot --headless --path godot --quit-after 1800 2>&1 | tee /tmp/godot-smoke.log
+          if grep -E "SCRIPT ERROR|Parse Error|Failed to load script|Compile Error|Invalid call" /tmp/godot-smoke.log; then
+            echo "Godot runtime reported script errors"
+            exit 1
+          fi
 
       - name: Diagnose Android export prerequisites
         shell: bash

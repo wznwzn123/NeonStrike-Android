@@ -1,0 +1,37 @@
+name: Build Neon Strike Godot Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - godot-rebuild
+    paths:
+      - "godot/**"
+      - ".github/workflows/godot-android.yml"
+
+jobs:
+  export-android:
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.3.0
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify Godot version
+        run: godot --version
+
+      - name: Import Godot project
+        run: godot --headless --editor --path godot --import --quit
+
+      - name: Export Android APK
+        run: |
+          mkdir -p godot/build
+          godot --headless --path godot --export-debug "Android" godot/build/NeonStrike.apk
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: NeonStrike-Godot-Android
+          path: godot/build/NeonStrike.apk
+          if-no-files-found: error

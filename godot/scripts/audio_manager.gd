@@ -32,7 +32,7 @@ func _make_music() -> AudioStreamWAV:
     var notes := [110.0, 146.83, 164.81, 130.81]
     for i in range(count):
         var t := float(i) / rate
-        var note := notes[int(t / 2.0) % notes.size()]
+        var note: float = notes[int(t / 2.0) % notes.size()]
         var fade := minf(1.0, t / 0.5) * minf(1.0, (seconds - t) / 0.5)
         var sample := sin(TAU * note * t) * 0.055 + sin(TAU * note * 2.0 * t) * 0.018
         sample *= fade * (0.72 + 0.28 * sin(TAU * 0.25 * t))

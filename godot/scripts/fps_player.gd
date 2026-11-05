@@ -192,6 +192,8 @@ func take_damage(amount: int) -> void:
     if eliminated_state or get_tree().paused:
         return
     health = maxi(0, health - amount)
+    if is_instance_valid(audio):
+        audio.play_effect("hurt")
     health_changed.emit(health)
     if health <= 0:
         eliminated_state = true

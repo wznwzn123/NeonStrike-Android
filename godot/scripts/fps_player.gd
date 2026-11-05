@@ -81,7 +81,10 @@ func _build_input() -> void:
     _add_action("move_back", [KEY_S, KEY_DOWN])
     _add_action("move_left", [KEY_A, KEY_LEFT])
     _add_action("move_right", [KEY_D, KEY_RIGHT])
-    _add_action("fire", [MOUSE_BUTTON_LEFT])
+    _add_action("fire", [])
+    var mouse_fire := InputEventMouseButton.new()
+    mouse_fire.button_index = MOUSE_BUTTON_LEFT
+    InputMap.action_add_event("fire", mouse_fire)
     _add_action("reload", [KEY_R])
     _add_action("jump", [KEY_SPACE])
 

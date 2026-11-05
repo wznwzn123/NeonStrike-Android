@@ -54,6 +54,8 @@ func _make_effect(kind: String) -> AudioStreamWAV:
         seconds = 0.11
     elif kind == "reload":
         seconds = 0.32
+    elif kind == "hurt":
+        seconds = 0.20
     var count := int(rate * seconds)
     var data := PackedByteArray()
     data.resize(count * 2)
@@ -64,6 +66,8 @@ func _make_effect(kind: String) -> AudioStreamWAV:
         base = 520.0
     elif kind == "reload":
         base = 240.0
+    elif kind == "hurt":
+        base = 150.0
     for i in range(count):
         var t := float(i) / rate
         var envelope := exp(-t * (13.0 if kind == "fire" else 20.0))
@@ -74,6 +78,8 @@ func _make_effect(kind: String) -> AudioStreamWAV:
             wave = wave * 0.55 + sin(TAU * 1100.0 * t) * 0.2
         elif kind == "reload":
             wave = sin(TAU * base * t) * 0.5 + sin(TAU * 730.0 * t) * 0.2
+        elif kind == "hurt":
+            wave = wave * 0.7 + sin(TAU * 65.0 * t) * 0.3
         data.encode_s16(i * 2, int(clampf(wave * envelope * 0.7, -1.0, 1.0) * 32767.0))
     var stream := AudioStreamWAV.new()
     stream.format = AudioStreamWAV.FORMAT_16_BITS
@@ -83,9 +89,9 @@ func _make_effect(kind: String) -> AudioStreamWAV:
     return stream
 
 func play_effect(kind: String) -> void:
-    if not sfx_enabled:
+    if not sfx_enabled or not effect_cache.has(kind):
         return
-    if not effect_cache.has(kind):\n        return\n    sfx_player.stream = effect_cache[kind]
+    sfx_player.stream = effect_cache[kind]
     sfx_player.play()
 
 func set_music_enabled(enabled: bool) -> void:

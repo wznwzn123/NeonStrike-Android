@@ -33,7 +33,7 @@ jobs:
             echo "Android SDK command-line tools not found under $ANDROID_HOME"
             exit 1
           fi
-          yes | "$SDKMANAGER" --licenses >/dev/null
+          yes | "$SDKMANAGER" --licenses >/dev/null 2>&1 || true
           "$SDKMANAGER" "platform-tools" "platforms;android-35" "build-tools;35.0.0"
 
       - name: Setup Godot and export templates

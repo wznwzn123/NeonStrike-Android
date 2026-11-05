@@ -192,7 +192,7 @@ func _make_touch_button(parent: Control, caption: String, offset: Vector2, butto
         button.button_down.connect(func(): player.mobile_fire = true)
         button.button_up.connect(func(): player.mobile_fire = false)
     elif action == "reload":
-        button.pressed.connect(func(): player.reload(); audio.play_effect("reload"))
+        button.pressed.connect(player.reload)
     elif action == "jump":
         button.pressed.connect(player.request_jump)
 

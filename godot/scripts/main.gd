@@ -169,8 +169,8 @@ func _input(event: InputEvent) -> void:
             joystick_touch = -1
             player.mobile_move = Vector2.ZERO
     elif event is InputEventScreenDrag and event.index == joystick_touch:
-        var delta := (event.position - joystick_origin) / 70.0
-        player.mobile_move = Vector2(clampf(delta.x, -1, 1), clampf(delta.y, -1, 1))
+        var drag_delta: Vector2 = (event.position - joystick_origin) / 70.0
+        player.mobile_move = Vector2(clampf(drag_delta.x, -1, 1), clampf(drag_delta.y, -1, 1))
 
 func _on_health_changed(value: int) -> void:
     if is_instance_valid(health_label):

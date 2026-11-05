@@ -69,6 +69,16 @@ jobs:
       - name: Import and validate project scripts
         run: godot --headless --editor --path godot --import --quit
 
+      - name: Diagnose Android export prerequisites
+        shell: bash
+        run: |
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          echo "JAVA_HOME=$JAVA_HOME"
+          ls -la "$ANDROID_HOME/platforms"
+          ls -la "$ANDROID_HOME/build-tools"
+          find "$HOME/.local/share/godot/export_templates" -maxdepth 2 -type f -printf '%p %s bytes\\n' 2>/dev/null | head -40 || true
+          cat "$HOME/.config/godot/editor_settings-4.tres"
+
       - name: Export Android APK
         run: |
           mkdir -p godot/build

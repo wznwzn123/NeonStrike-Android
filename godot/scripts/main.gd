@@ -19,6 +19,8 @@ var sfx_player: AudioStreamPlayer
 var master_volume := 0.65
 var game_paused := false
 var game_over := false
+var menu_heading: Label
+var menu_primary_button: Button
 
 func _ready() -> void:
     Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -234,15 +236,15 @@ func _build_pause_menu(root: Control) -> void:
     var column := VBoxContainer.new()
     column.add_theme_constant_override("separation", 14)
     panel.add_child(column)
-    var heading := Label.new()
-    heading.text = "NEON STRIKE"
-    heading.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-    heading.add_theme_font_size_override("font_size", 28)
-    column.add_child(heading)
-    var resume := Button.new()
-    resume.text = "继续游戏"
-    resume.pressed.connect(_resume_game)
-    column.add_child(resume)
+    menu_heading = Label.new()
+    menu_heading.text = "NEON STRIKE"
+    menu_heading.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+    menu_heading.add_theme_font_size_override("font_size", 28)
+    column.add_child(menu_heading)
+    menu_primary_button = Button.new()
+    menu_primary_button.text = "继续游戏"
+    menu_primary_button.pressed.connect(_resume_game)
+    column.add_child(menu_primary_button)
     var settings := Button.new()
     settings.text = "设置"
     settings.pressed.connect(_show_settings)
@@ -393,13 +395,11 @@ func _show_end_menu(title_text: String) -> void:
     player.set_physics_process(false)
     pause_layer.visible = true
     settings_layer.visible = false
-    var panel := pause_layer.get_child(1).get_child(0) as PanelContainer
-    var column := panel.get_child(0) as VBoxContainer
-    var heading := column.get_child(0) as Label
-    heading.text = title_text
-    (column.get_child(1) as Button).text = "重新开始"
-    (column.get_child(1) as Button).pressed.disconnect(_resume_game)
-    (column.get_child(1) as Button).pressed.connect(func(): get_tree().reload_current_scene())
+    menu_heading.text = title_text
+    menu_primary_button.text = "重新开始"
+    for connection in menu_primary_button.pressed.get_connections():
+        menu_primary_button.pressed.disconnect(connection.callable)
+    menu_primary_button.pressed.connect(func(): get_tree().reload_current_scene())
 
 func _update_status(value: String) -> void:
     if is_instance_valid(status_label):

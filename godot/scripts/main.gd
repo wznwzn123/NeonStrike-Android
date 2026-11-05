@@ -152,7 +152,7 @@ func _make_touch_button(parent: Control, caption: String, offset: Vector2, butto
     elif action == "reload":
         button.pressed.connect(player.reload)
     elif action == "jump":
-        button.pressed.connect(func(): Input.action_press("jump"))
+        button.pressed.connect(player.request_jump)
 
 func _input(event: InputEvent) -> void:
     if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
